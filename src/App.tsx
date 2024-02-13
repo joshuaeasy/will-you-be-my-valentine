@@ -6,8 +6,18 @@ export default function Page() {
   const [yesPressed, setYesPressed] = useState(false);
   const yesButtonSize = noCount * 20 + 16;
 
+  const logAnswer = (answer: string) => {
+    fetch('./response.php?answer='+encodeURI(answer)).then().catch()
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleYesClick = () => {
+    setYesPressed(true);
+    logAnswer('Yes');
+  };
   const handleNoClick = () => {
     setNoCount(noCount + 1);
+    logAnswer(getNoButtonText());
   };
 
   const getNoButtonText = () => {
@@ -51,7 +61,7 @@ export default function Page() {
             <button
               className={`mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
               style={{ fontSize: yesButtonSize }}
-              onClick={() => setYesPressed(true)}
+              onClick={handleYesClick}
             >
               Yes
             </button>
